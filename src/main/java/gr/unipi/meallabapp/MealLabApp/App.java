@@ -20,7 +20,7 @@ public class App extends Application {
         window = primaryStage;
 
     	// We create an object using the MainSceneCreator constructor.
-    	MainSceneCreator mainSceneCreator = new MainSceneCreator(650,500);
+    	MainSceneCreator mainSceneCreator = new MainSceneCreator(1100,800);
     	
     	// We call the createScene() method to build the scene.
         mainScene = mainSceneCreator.createScene();

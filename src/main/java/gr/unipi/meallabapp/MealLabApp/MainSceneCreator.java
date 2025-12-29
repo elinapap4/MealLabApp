@@ -1,5 +1,7 @@
 package gr.unipi.meallabapp.MealLabApp;
 
+import gr.unipi.meallab.MealApiClient;
+import gr.unipi.meallab.Recipe;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -12,15 +14,15 @@ import javafx.scene.text.Font;
 //The class implements the EventHandler interface handle mouse clicks.
 public class MainSceneCreator implements EventHandler<MouseEvent> {
 	
-	//Fields for window dimensions
+	//Fields for scene dimensions
 	int width, height;
 	
 	//Fields that represent JavaFX UI components (Nodes)
     GridPane root;
-    Label welcomeLabel;
-    Button searchMenuBtn;
-    Button listsMenuBtn;
-    Button randomMenuBtn;
+    Label welcomeLabel; //Welcome label
+    Button searchMenuBtn; //Button for searching 
+    Button listsMenuBtn; //Button for lists 
+    Button randomMenuBtn; //Button for random recipe 
     
  // Constructor of the class that receives the window dimensions.
     public MainSceneCreator(int width, int height) {
@@ -34,10 +36,10 @@ public class MainSceneCreator implements EventHandler<MouseEvent> {
         root.setVgap(10);
         
         // Initialize the nodes
-        welcomeLabel= new Label("Αρχικό Μενού");
-        searchMenuBtn = new Button("Αναζήτηση Συνταγής");
-        listsMenuBtn = new Button("Οι Λίστες μου");
-        randomMenuBtn = new Button("Τι να μαγειρέψω σήμερα;");
+        welcomeLabel= new Label("Main Menu");
+        searchMenuBtn = new Button("Search for a recipe");
+        listsMenuBtn = new Button("My lists");
+        randomMenuBtn = new Button("Get a random recipe");
         
        // Configure the title's appearance: set font size, center text, and match button width
         welcomeLabel.setFont(new Font("Arial", 16));
@@ -71,23 +73,32 @@ public class MainSceneCreator implements EventHandler<MouseEvent> {
  // We override the handle method from the EventHandler interface
     @Override
     public void handle(MouseEvent event) {
+    	// SEARCH BUTTON
         if (event.getSource() == searchMenuBtn) {
-        	// 1. Create an object of the search scene creator class
+            // 1. Create a new object to build the Search scene 
             SearchSceneCreator searchCreator = new SearchSceneCreator(width, height);
             
-            // 2. Call the createScene() method to get the new scene
+            // 2. Generate the scene from the creator
             Scene searchScene = searchCreator.createScene();
             
-            // 3. Set the search scene to the main window (stage)
+            // 3. Update the main window (stage) with the new scene
             App.window.setScene(searchScene);
         }
+        
+        // RANDOM BUTTON
         else if (event.getSource() == randomMenuBtn) {
+            Recipe randomRecipe = MealApiClient.getRandomRecipe();
             
-            System.out.println("Random Recipe clicked!");
+            // Check if recipe is not null
+            if (randomRecipe != null) {
+                DetailsSceneCreator detailsCreator = new DetailsSceneCreator(width, height, randomRecipe);
+                App.window.setScene(detailsCreator.createScene());
+            }
         }
-        else if (event.getSource() == listsMenuBtn) {
-           
-            System.out.println("My Lists clicked!");
+        
+        // LISTS BUTTON
+        else if (event.getSource() == listsMenuBtn) {       
+            System.out.println("My Lists button clicked!");
         }
     }
 }
