@@ -87,10 +87,7 @@ public class SearchSceneCreator implements EventHandler<MouseEvent> {
             // 3. Fill the list if results were found
             if (searchResults != null) {
                 for (int i = 0; i < searchResults.length; i++) {
-                    searchList.getItems().add(searchResults[i].getTitle());
-                }
-            } else {
-                System.out.println("No recipes found for: " + searchInput.getText());
+                    searchList.getItems().add(searchResults[i].getTitle());}
             }
         }
         
@@ -104,6 +101,23 @@ public class SearchSceneCreator implements EventHandler<MouseEvent> {
             
             // 3. Update the window
             App.window.setScene(mainScene);
+        }
+        
+        // SELECT BUTTON
+        else if (event.getSource() == selectBtn) {
+            
+            // 1. We find the row that the user clicked on.
+            int row = searchList.getSelectionModel().getSelectedIndex();
+            
+            // 2. Check if a row is actually selected.
+            if (row >= 0) {
+                // 3. Get the recipe from our array using that row number
+                Recipe selectedRecipe = searchResults[row];
+                
+                // 4. Create the new scene and show it
+                DetailsSceneCreator details = new DetailsSceneCreator(width, height, selectedRecipe);
+                App.window.setScene(details.createScene());
+            }
         }
     }
 } 

@@ -21,7 +21,8 @@ public class MainSceneCreator implements EventHandler<MouseEvent> {
     GridPane root;
     Label welcomeLabel; //Welcome label
     Button searchMenuBtn; //Button for searching 
-    Button listsMenuBtn; //Button for lists 
+    Button favMenuBtn; //Button for my favorites 
+    Button cookedMenuBtn; //Button for my cooking history 
     Button randomMenuBtn; //Button for random recipe 
     
  // Constructor of the class that receives the window dimensions.
@@ -38,7 +39,8 @@ public class MainSceneCreator implements EventHandler<MouseEvent> {
         // Initialize the nodes
         welcomeLabel= new Label("Main Menu");
         searchMenuBtn = new Button("Search for a recipe");
-        listsMenuBtn = new Button("My lists");
+        favMenuBtn = new Button("My Favorites");
+        cookedMenuBtn = new Button("My Cooking History");
         randomMenuBtn = new Button("Get a random recipe");
         
        // Configure the title's appearance: set font size, center text, and match button width
@@ -48,19 +50,22 @@ public class MainSceneCreator implements EventHandler<MouseEvent> {
         
         // Set minimum size for the buttons.
         searchMenuBtn.setMinSize(200, 40);
-        listsMenuBtn.setMinSize(200, 40);
+        favMenuBtn.setMinSize(200, 40);
+        cookedMenuBtn.setMinSize(200, 40);
         randomMenuBtn.setMinSize(200, 40);
         
         
         // Position nodes in the grid: (column, row)
         root.add(welcomeLabel, 0, 0);
         root.add(searchMenuBtn, 0, 5);
-        root.add(listsMenuBtn, 0, 7);
-        root.add(randomMenuBtn, 0, 9);
+        root.add(favMenuBtn, 0, 7);
+        root.add(cookedMenuBtn, 0, 9);
+        root.add(randomMenuBtn, 0, 11);
         
         // Connect all buttons to this class so that the handle() method runs when clicked
         searchMenuBtn.setOnMouseClicked(this);
-        listsMenuBtn.setOnMouseClicked(this);
+        favMenuBtn.setOnMouseClicked(this);
+        cookedMenuBtn.setOnMouseClicked(this);
         randomMenuBtn.setOnMouseClicked(this);
     }
     
@@ -96,9 +101,20 @@ public class MainSceneCreator implements EventHandler<MouseEvent> {
             }
         }
         
-        // LISTS BUTTON
-        else if (event.getSource() == listsMenuBtn) {       
-            System.out.println("My Lists button clicked!");
+        // MY FAVORITES BUTTON
+        else if (event.getSource() == favMenuBtn) {       
+            FavoriteSceneCreator favCreator = new FavoriteSceneCreator(width, height);
+            
+            // 2. Generate the scene from the creator
+            Scene favScene = favCreator.createScene();
+            
+            // 3. Update the main window (stage) with the new scene
+            App.window.setScene(favScene);
+        }
+        
+        // MY COOKING HISTORY BUTTON
+        else if (event.getSource() == cookedMenuBtn) {       
+            System.out.println("My cooking history button clicked!");
         }
     }
 }
