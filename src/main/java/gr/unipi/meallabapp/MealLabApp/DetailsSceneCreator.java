@@ -125,6 +125,7 @@ public class DetailsSceneCreator implements EventHandler<MouseEvent> {
         Scene s = new Scene(root, width, height);
         return s;
     }
+    
  // We override the handle method from the EventHandler interface
     @Override
     public void handle(MouseEvent event) {
@@ -132,7 +133,6 @@ public class DetailsSceneCreator implements EventHandler<MouseEvent> {
         if (event.getSource() == randomBtn) {
             Recipe randomRecipe = MealApiClient.getRandomRecipe();
             
-            // Check if recipe is not null
             if (randomRecipe != null) {
                 DetailsSceneCreator detailsCreator = new DetailsSceneCreator(width, height, randomRecipe);
                 App.window.setScene(detailsCreator.createScene());
@@ -141,12 +141,16 @@ public class DetailsSceneCreator implements EventHandler<MouseEvent> {
         
         // FAVORITES BUTTON
         else if (event.getSource() == favBtn) {
-            System.out.println("Added to Favorites: " + currentRecipe.getTitle());
-        }
+            // Check if recipe does not exist already in ArrayList "favorites"
+            if (FavoriteSceneCreator.favorites.contains(currentRecipe) == false) {   
+                // Add recipe to arrayList favorites
+                FavoriteSceneCreator.favorites.add(currentRecipe);
+            }
+        } 
         
         // COOKED BUTTON
         else if (event.getSource() == cookedBtn) {
-            System.out.println("Marked as Cooked: " + currentRecipe.getTitle());
+        	 System.out.println("Marked as Cooked: " + currentRecipe.getTitle());
         }    
         
         // BACK BUTTON
@@ -154,6 +158,6 @@ public class DetailsSceneCreator implements EventHandler<MouseEvent> {
             MainSceneCreator mainCreator = new MainSceneCreator(width, height);   
             Scene mainScene = mainCreator.createScene();   
             App.window.setScene(mainScene);
-        }       
+        }
     }
 } 
