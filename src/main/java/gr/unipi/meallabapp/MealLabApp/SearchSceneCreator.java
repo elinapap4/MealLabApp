@@ -73,6 +73,7 @@ public class SearchSceneCreator implements EventHandler<MouseEvent> {
         Scene s = new Scene(root, width, height);
         return s;
     }
+    
  // We override the handle method from the EventHandler interface
     @Override
     public void handle(MouseEvent event) {
@@ -106,7 +107,7 @@ public class SearchSceneCreator implements EventHandler<MouseEvent> {
         // SELECT BUTTON
         else if (event.getSource() == selectBtn) {
             
-            // 1. We find the row that the user clicked on.
+            // 1. We find the row that the user clicked on
             int row = searchList.getSelectionModel().getSelectedIndex();
             
             // 2. Check if a row is actually selected.
