@@ -20,6 +20,7 @@ public class FavoriteSceneCreator implements EventHandler<MouseEvent>{
     // We use the generic ArrayList class to ensure it only accepts Recipe objects
     public static ArrayList<Recipe> favorites = new ArrayList<>();
     
+    
     // Fields that represent JavaFX UI components (Nodes)
     GridPane root;
     Label titleLabel; //Label for the title of the scene 
@@ -33,7 +34,7 @@ public class FavoriteSceneCreator implements EventHandler<MouseEvent>{
     public FavoriteSceneCreator(int width, int height) {
         this.width = width;
         this.height = height;
-
+             
         // Initialize the GridPane and set centering and gaps between cells
         root = new GridPane();
         root.setAlignment(Pos.CENTER);
@@ -124,13 +125,30 @@ public class FavoriteSceneCreator implements EventHandler<MouseEvent>{
             
         // MOVE TO COOKED BUTTON
         else if (event.getSource() == moveToCookedBtn) {
-
+        	// 1. We find the row that the user clicked on.
+            int row = favList.getSelectionModel().getSelectedIndex();
+            
+            // 2. Check if a row is actually selected.
+            if (row >= 0) {
+                
+            	// 3. Get the recipe object from the favorites list using the row number.
+                Recipe selectedToMove = favorites.get(row); 
+                
+                // 4. If the recipe is not already in the cooked list, add it.
+                if (CookedSceneCreator.cookedRecipes.contains(selectedToMove) == false) {   
+                    CookedSceneCreator.cookedRecipes.add(selectedToMove);
+                }
+            }
         }
             
         // BACK BUTTON
-        else if (event.getSource() == backBtn) {
-            MainSceneCreator mainCreator = new MainSceneCreator(width, height);   
-            App.window.setScene(mainCreator.createScene());
-        }
+        // 1. Create a new object to build the Main Menu scene 
+        MainSceneCreator mainCreator = new MainSceneCreator(width, height);   
+        
+        // 2. Generate the scene
+        Scene mainScene = mainCreator.createScene();   
+        
+        // 3. Update the window
+        App.window.setScene(mainScene);
     }
 }

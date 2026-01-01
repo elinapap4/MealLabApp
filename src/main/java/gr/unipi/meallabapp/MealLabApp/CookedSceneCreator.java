@@ -119,8 +119,13 @@ public class CookedSceneCreator  implements EventHandler<MouseEvent>{
 	            
 	        // BACK BUTTON
 	        else if (event.getSource() == backBtn) {
+	            // 1. Create a new object to build the Main Menu scene 
 	            MainSceneCreator mainCreator = new MainSceneCreator(width, height);   
-	            App.window.setScene(mainCreator.createScene());
-	        }
+	            
+	            // 2. Generate the scene
+	            Scene mainScene = mainCreator.createScene();   
+	            
+	            // 3. Update the window
+	            App.window.setScene(mainScene);}
 	    }
 }

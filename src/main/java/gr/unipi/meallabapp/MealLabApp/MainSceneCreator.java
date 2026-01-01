@@ -53,8 +53,7 @@ public class MainSceneCreator implements EventHandler<MouseEvent> {
         favMenuBtn.setMinSize(200, 40);
         cookedMenuBtn.setMinSize(200, 40);
         randomMenuBtn.setMinSize(200, 40);
-        
-        
+              
         // Position nodes in the grid: (column, row)
         root.add(welcomeLabel, 0, 0);
         root.add(searchMenuBtn, 0, 5);
@@ -102,7 +101,9 @@ public class MainSceneCreator implements EventHandler<MouseEvent> {
         }
         
         // MY FAVORITES BUTTON
-        else if (event.getSource() == favMenuBtn) {       
+        else if (event.getSource() == favMenuBtn) {    
+        	
+        	// 1. Create the creator object for the Favorite scene
             FavoriteSceneCreator favCreator = new FavoriteSceneCreator(width, height);
             
             // 2. Generate the scene from the creator
@@ -113,8 +114,16 @@ public class MainSceneCreator implements EventHandler<MouseEvent> {
         }
         
         // MY COOKING HISTORY BUTTON
-        else if (event.getSource() == cookedMenuBtn) {       
-            System.out.println("My cooking history button clicked!");
+        else if (event.getSource() == cookedMenuBtn) { 
+        	
+        	// 1. Create the creator object for the Cooking History scene
+            CookedSceneCreator cookedCreator = new CookedSceneCreator(width, height);
+            
+            // 2. Generate the scene from the creator
+            Scene cookedScene = cookedCreator.createScene();
+            
+            // 3. Update the main window (stage) with the new scene
+            App.window.setScene(cookedScene);
         }
     }
 }

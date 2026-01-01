@@ -43,7 +43,7 @@ public class DetailsSceneCreator implements EventHandler<MouseEvent> {
         this.width = width;
         this.height = height;
 
-        // We assign the selectiedRecipe to our class field
+        // We assign the selectedRecipe to our class field
         this.currentRecipe = selectedRecipe;
         
         // 1. Initialize the GridPane and set centering and gaps between cells
@@ -150,13 +150,22 @@ public class DetailsSceneCreator implements EventHandler<MouseEvent> {
         
         // COOKED BUTTON
         else if (event.getSource() == cookedBtn) {
-        	 System.out.println("Marked as Cooked: " + currentRecipe.getTitle());
+            // Check if recipe does not exist already in ArrayList "cookedRecipes"
+            if (CookedSceneCreator.cookedRecipes.contains(currentRecipe) == false) {   
+                // Add recipe to arrayList "cookedRecipes"
+                CookedSceneCreator.cookedRecipes.add(currentRecipe);
+            }
         }    
         
         // BACK BUTTON
         else if (event.getSource() == backBtn) {
+            // 1. Create a new object to build the Main Menu scene 
             MainSceneCreator mainCreator = new MainSceneCreator(width, height);   
+            
+            // 2. Generate the scene
             Scene mainScene = mainCreator.createScene();   
+            
+            // 3. Update the window
             App.window.setScene(mainScene);
         }
     }
