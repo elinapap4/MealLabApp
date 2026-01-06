@@ -26,6 +26,7 @@ public class CookedSceneCreator  implements EventHandler<MouseEvent>{
 	    ListView<String> cookedList; //List with all the cooked recipes
 	    Button removeBtn; //Remove from the list button
 	    Button selectBtn; //Button to select the recipe
+	    Button moveToFavoriteBtn; //Button to move recipe to favorite list
 	    Button backBtn; //Back button
 	   
 	    // Constructor of the class that receives the window dimensions
@@ -43,10 +44,12 @@ public class CookedSceneCreator  implements EventHandler<MouseEvent>{
 	        titleLabel = new Label("My Cooking History!");
 	        removeBtn = new Button("Remove recipe");
 	        selectBtn = new Button("Select");
+	        moveToFavoriteBtn = new Button("Move to favorites");
 	        backBtn = new Button("Back to Main Menu");
 	        backBtn.setMinSize(100, 20);
 	        removeBtn.setMinSize(100, 20);
 	        selectBtn.setMinSize(100, 20);
+	        moveToFavoriteBtn.setMinSize(100, 20);
 	        titleLabel.setFont(new Font("Arial", 16));
 	        titleLabel.setAlignment(Pos.CENTER);
 	        titleLabel.setMinWidth(200);
@@ -65,6 +68,7 @@ public class CookedSceneCreator  implements EventHandler<MouseEvent>{
 	        root.add(titleLabel, 0, 0, 3, 1); 
 	        root.add(backBtn, 0, 1);
 	        root.add(selectBtn, 0, 2);
+	        root.add(moveToFavoriteBtn, 1, 2); 
 	        root.add(removeBtn, 2, 2);
 	        root.add(cookedList, 0, 3, 3, 1);
 	        
@@ -72,6 +76,7 @@ public class CookedSceneCreator  implements EventHandler<MouseEvent>{
 	        // Connect the buttons to this class so that the handle() method runs when clicked
 	        removeBtn.setOnMouseClicked(this);
 	        selectBtn.setOnMouseClicked(this);
+	        moveToFavoriteBtn.setOnMouseClicked(this);
 	        backBtn.setOnMouseClicked(this);
 	    }
 
@@ -115,7 +120,25 @@ public class CookedSceneCreator  implements EventHandler<MouseEvent>{
 	                DetailsSceneCreator details = new DetailsSceneCreator(width, height, selectedRecipe);
 	                App.window.setScene(details.createScene());
 	            }
-	        }	            
+	        }	          
+
+	        // MOVE TO FAVORITES BUTTON
+	        else if (event.getSource() == moveToFavoriteBtn) {
+	        	// 1. We find the row that the user clicked on.
+	            int row = cookedList.getSelectionModel().getSelectedIndex();
+	            
+	            // 2. Check if a row is actually selected.
+	            if (row >= 0) {
+	                
+	            	// 3. Get the recipe object from the cooked list using the row number.
+	                Recipe selectedToMove = cookedRecipes.get(row); 
+	                
+	                // 4. If the recipe is not already in the favorite list, add it.
+	                if (FavoriteSceneCreator.favorites.contains(selectedToMove) == false) {   
+	                    FavoriteSceneCreator.favorites.add(selectedToMove);
+	                }
+	            }
+	        }
 	            
 	        // BACK BUTTON
 	        else if (event.getSource() == backBtn) {

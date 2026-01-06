@@ -142,6 +142,7 @@ public class FavoriteSceneCreator implements EventHandler<MouseEvent>{
         }
             
         // BACK BUTTON
+        else if (event.getSource() == backBtn) {
         // 1. Create a new object to build the Main Menu scene 
         MainSceneCreator mainCreator = new MainSceneCreator(width, height);   
         
@@ -149,6 +150,7 @@ public class FavoriteSceneCreator implements EventHandler<MouseEvent>{
         Scene mainScene = mainCreator.createScene();   
         
         // 3. Update the window
-        App.window.setScene(mainScene);
+        App.window.setScene(mainScene);}
     }
 }
+    
