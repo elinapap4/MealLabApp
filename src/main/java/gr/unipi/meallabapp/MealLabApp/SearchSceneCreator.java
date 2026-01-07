@@ -85,13 +85,21 @@ public class SearchSceneCreator implements EventHandler<MouseEvent> {
             // 2. Clear the ListView to prepare for new results
             searchList.getItems().clear();
             
-            // 3. Fill the list if results were found
-            if (searchResults != null) {
+            // 3. Check if results were found
+            if (searchResults != null && searchResults.length > 0) {
+            	// Fill the list with the titles of the found recipes
                 for (int i = 0; i < searchResults.length; i++) {
                     searchList.getItems().add(searchResults[i].getTitle());}
             }
-        }
         
+            // 4. If no recipes were found, show a friendly message
+           else {
+            // Get the text the user typed to include it in the message
+            String userInput = searchInput.getText();
+            searchList.getItems().add("No results found for: " +userInput);
+
+            }
+        }
         // BACK BUTTON
         else if (event.getSource() == backBtn) {
             // 1. Create a new object to build the Main Menu scene 

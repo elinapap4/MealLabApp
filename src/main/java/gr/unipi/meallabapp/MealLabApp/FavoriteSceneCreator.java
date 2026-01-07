@@ -3,6 +3,7 @@ package gr.unipi.meallabapp.MealLabApp;
 import gr.unipi.meallab.Recipe;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -103,6 +104,12 @@ public class FavoriteSceneCreator implements EventHandler<MouseEvent>{
                 
              // 4.Remove the recipe from the screen instantly
                 favList.getItems().remove(row);
+                
+                // Show success message
+                Alert removeAlert = new Alert(Alert.AlertType.INFORMATION);
+                removeAlert.setHeaderText(null);
+                removeAlert.setContentText("The recipe has been removed!");
+                removeAlert.showAndWait();
             }
         }
         
@@ -137,6 +144,18 @@ public class FavoriteSceneCreator implements EventHandler<MouseEvent>{
                 // 4. If the recipe is not already in the cooked list, add it.
                 if (CookedSceneCreator.cookedRecipes.contains(selectedToMove) == false) {   
                     CookedSceneCreator.cookedRecipes.add(selectedToMove);
+                    
+                    // Show success message
+                    Alert cookedAlert = new Alert(Alert.AlertType.INFORMATION);
+                    cookedAlert.setHeaderText(null);
+                    cookedAlert.setContentText("This recipe was added to your cooking history.");
+                    cookedAlert.showAndWait();
+                } else {
+                    // Show warning message if already exists
+                    Alert cookedAlert = new Alert(Alert.AlertType.WARNING);
+                    cookedAlert.setHeaderText(null);
+                    cookedAlert.setContentText("You have already marked this recipe as cooked.");
+                    cookedAlert.showAndWait();
                 }
             }
         }

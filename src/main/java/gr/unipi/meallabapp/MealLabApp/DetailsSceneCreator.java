@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
+import javafx.scene.control.Alert;
 
 public class DetailsSceneCreator implements EventHandler<MouseEvent> {
 
@@ -145,8 +146,20 @@ public class DetailsSceneCreator implements EventHandler<MouseEvent> {
             if (FavoriteSceneCreator.favorites.contains(currentRecipe) == false) {   
                 // Add recipe to arrayList favorites
                 FavoriteSceneCreator.favorites.add(currentRecipe);
+            
+                // Show success message
+                Alert favAlert = new Alert(Alert.AlertType.INFORMATION);
+                favAlert.setHeaderText(null);
+                favAlert.setContentText("The recipe has been added to your favorites!");
+                favAlert.showAndWait();
+            } else {
+                // Show warning message if already exists
+                Alert favAlert = new Alert(Alert.AlertType.WARNING);
+                favAlert.setHeaderText(null);
+                favAlert.setContentText("This recipe is already in your favorites list.");
+                favAlert.showAndWait();
             }
-        } 
+        }
         
         // COOKED BUTTON
         else if (event.getSource() == cookedBtn) {
@@ -154,6 +167,18 @@ public class DetailsSceneCreator implements EventHandler<MouseEvent> {
             if (CookedSceneCreator.cookedRecipes.contains(currentRecipe) == false) {   
                 // Add recipe to arrayList "cookedRecipes"
                 CookedSceneCreator.cookedRecipes.add(currentRecipe);
+                
+                // Show success message
+                Alert cookedAlert = new Alert(Alert.AlertType.INFORMATION);
+                cookedAlert.setHeaderText(null);
+                cookedAlert.setContentText("This recipe was added to your cooking history.");
+                cookedAlert.showAndWait();
+            } else {
+                // Show warning message if already exists
+                Alert cookedAlert = new Alert(Alert.AlertType.WARNING);
+                cookedAlert.setHeaderText(null);
+                cookedAlert.setContentText("You have already marked this recipe as cooked.");
+                cookedAlert.showAndWait();
             }
         }    
         
