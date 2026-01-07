@@ -16,6 +16,8 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
     	
+    	try {
+    		
     	// We assign the primaryStage to our static window variable.
         window = primaryStage;
 
@@ -30,6 +32,13 @@ public class App extends Application {
     	primaryStage.setTitle("Meal Lab App");
         primaryStage.setScene(mainScene);
         primaryStage.show();
+        
+    	} catch (Exception e) {
+            // Catch any errors that occur during the execution of the main scene
+            System.err.println("Error launching the application: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
     }
 
     // The main method that launches the app.

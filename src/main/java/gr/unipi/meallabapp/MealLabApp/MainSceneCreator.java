@@ -91,9 +91,10 @@ public class MainSceneCreator implements EventHandler<MouseEvent> {
         
         // RANDOM BUTTON
         else if (event.getSource() == randomMenuBtn) {
+        	// 1. Get a random recipe using the MealApiClient
             Recipe randomRecipe = MealApiClient.getRandomRecipe();
             
-            // Check if recipe is not null
+            // 2. If a recipe was found, create and show the details scene
             if (randomRecipe != null) {
                 DetailsSceneCreator detailsCreator = new DetailsSceneCreator(width, height, randomRecipe);
                 App.window.setScene(detailsCreator.createScene());

@@ -132,14 +132,20 @@ public class DetailsSceneCreator implements EventHandler<MouseEvent> {
     public void handle(MouseEvent event) {
         // RANDOM BUTTON
         if (event.getSource() == randomBtn) {
+        	try {
+            // 1. Get a random recipe using the MealApiClient
             Recipe randomRecipe = MealApiClient.getRandomRecipe();
             
+            // 2. If a recipe was found, create and show the details scene
             if (randomRecipe != null) {
                 DetailsSceneCreator detailsCreator = new DetailsSceneCreator(width, height, randomRecipe);
                 App.window.setScene(detailsCreator.createScene());
             }
         }
-        
+         catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
         // FAVORITES BUTTON
         else if (event.getSource() == favBtn) {
             // Check if recipe does not exist already in ArrayList "favorites"

@@ -79,6 +79,8 @@ public class SearchSceneCreator implements EventHandler<MouseEvent> {
     public void handle(MouseEvent event) {
     	// SEARCH A RECIPE BUTTON
         if (event.getSource() == searchBtn) {
+        	
+        	try {
             // 1. Get recipes from the API using the user's input
             searchResults = MealApiClient.searchRecipes(searchInput.getText());
             
@@ -99,7 +101,12 @@ public class SearchSceneCreator implements EventHandler<MouseEvent> {
             searchList.getItems().add("No results found for: " +userInput);
 
             }
+        }	
+         // This runs if an exception happens in the try block
+         catch (Exception e) {
+             e.printStackTrace();
         }
+    }
         // BACK BUTTON
         else if (event.getSource() == backBtn) {
             // 1. Create a new object to build the Main Menu scene 
